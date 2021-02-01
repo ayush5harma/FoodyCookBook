@@ -5,13 +5,12 @@ class MealsVC: UITableViewController,UISearchBarDelegate {
     var mealQuery: String!
     var meals = [Meal]()
     var mealsType: String?
-    
+    let searchBar = UISearchBar()
     override func viewDidLoad() {
-        super.viewDidLoad()
         
-        if let mealsType = mealsType {
-            navigationItem.title = mealsType
-        }
+        super.viewDidLoad()
+        searchBar.delegate = self
+            navigationItem.title = "Craving? Search here"
         getMeals()
     }
     
@@ -29,6 +28,22 @@ class MealsVC: UITableViewController,UISearchBarDelegate {
             }
         }
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        mealQuery = searchBar.text
+        NetworkManager.searchMeals(by: mealQuery) { (meals, errorMessage) in
+            if let errorMessage = errorMessage {
+                print(errorMessage)
+                return
+            }
+            DispatchQueue.main.async {
+                if let meals = meals {
+                    self.meals = meals
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return meals.count

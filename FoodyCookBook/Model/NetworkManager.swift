@@ -96,7 +96,35 @@ class NetworkManager {
             }
         }
     }
+    
+    
+    static func searchMeals(by query: String, response: @escaping ([Meal]?, String?)-> Void) {
+        guard let url = URL(string: "\(Constants.search)\(query)") else {
+            response(nil, "Could not process request. Please try again later.")
+            return
+        }
+        sendRequest(url: url) { (data, error) in
+             if error != nil {
+                response(nil, error?.localizedDescription)
+                return
+            }
+            guard let data = data else {
+                response(nil, "Could not get correct data. Please try agian later")
+                return
+            }
+            do {
+                let result = try JSONDecoder().decode(Recipe.self, from: data)
+                response(result.meals, nil)
+            } catch {
+                response(nil, "Failed to parse request data")
+            }
+        }
+    }
 
+    
+    
+    
+    
     private static func sendRequest(url: URL, completion: @escaping (Data?, Error?)-> Void) {
         debugPrint("request sent to \(url)")
         let task = URLSession(configuration: .default).dataTask(with: url) { (data, response, error) in
