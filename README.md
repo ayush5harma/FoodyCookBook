@@ -16,5 +16,9 @@
   <img src="https://github.com/ayush5harma/FoodyCookBook/blob/main/Screenshot/Simulator_Screen_Shot_iPhone_12_Pro_2021_02_01_at_23_25_26.png"  width="150"/>
   <img src="https://github.com/ayush5harma/FoodyCookBook/blob/main/Screenshot/Simulator_Screen_Shot_iPhone_12_Pro_2021_02_01_at_23_25_42.png"  width="150"/>
 </p>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/47772616/106565733-4342aa00-6555-11eb-8105-81e9f91d1450.gif">
+</p>
+
 
 
